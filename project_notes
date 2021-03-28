@@ -1,0 +1,13 @@
+How to run the codes:
+
+1. The starting point is: process_raw_data.py. This code reads the raw data files, filters to keep only the Jan 01, 2015 to June 30, 2015 cohort of patients, and saves the filtered data into a .pkl file (../data/filt_data_v1.pkl). Obviously, if the data is large, split the output files. For now, we are not worried about this as the output .pkl files are quite small.
+
+2. 
+
+
+Misc Notes:
+
+* Pushing large files using git LFS: https://docs.github.com/en/github/managing-large-files/configuring-git-large-file-storage
+
+
+
