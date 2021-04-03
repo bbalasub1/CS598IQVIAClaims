@@ -76,8 +76,6 @@ for colname in icdprc_cols:
 print(len(np.unique(prc)))
 # 926
 
-df_claims[diag_cols].
-
 
 # number of claims with same day service
 sum(df_claims["from_dt"] == df_claims["to_dt"])
