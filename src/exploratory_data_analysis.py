@@ -111,4 +111,26 @@ print(len(pd.unique(df_claims2018['pat_id'])))
 print(len(pd.unique(df_claims2019['pat_id'])))
 #4884
 
-# Add
+#################################
+## Create dataset for modeling ##
+#################################
+# each patient with a single record
+# x -> aggregation of rows from all except last qtr
+# y -> charged in last qtr
+
+# 1. first assign quarter to each record
+df_claims["quarter"] = pd.PeriodIndex(pd.to_datetime(df_claims["to_dt"]), freq = 'Q')
+
+# 2. find the latest quarter for each patient
+df_patient_last_quarter = df_claims.groupby('pat_id')["quarter"].max().reset_index()
+
+# 3. Find claims for patient in last quarter and not in last quarter
+
+df_claims_last_quarter = df_claims[df_claims.set_index(['pat_id','quarter']).index.isin(df_patient_last_quarter.set_index(['pat_id','quarter']).index)]
+df_claims_not_last_quarter = df_claims[~df_claims.set_index(['pat_id','quarter']).index.isin(df_patient_last_quarter.set_index(['pat_id','quarter']).index)]
+
+# 4. confirm many unique patients are in both sets
+len(pd.unique(df_claims_last_quarter['pat_id']))
+# 27226
+sum(np.isin(pd.unique(df_claims_not_last_quarter["pat_id"]), pd.unique(df_claims_last_quarter["pat_id"])))
+# 24970
