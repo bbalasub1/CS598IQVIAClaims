@@ -134,3 +134,8 @@ len(pd.unique(df_claims_last_quarter['pat_id']))
 # 27226
 sum(np.isin(pd.unique(df_claims_not_last_quarter["pat_id"]), pd.unique(df_claims_last_quarter["pat_id"])))
 # 24970
+
+# Create y variable for each patient
+df_y = df_claims_last_quarter.groupby('pat_id')["charge"].sum().reset_index()
+
+# Create x variable for each patient??
